@@ -13,4 +13,6 @@ pom.xml.asc
 /dev/resources/local.edn
 /dev/src/local.clj
 .clj-kondo/
+.DS_Store
+.lsp/
 
