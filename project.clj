@@ -25,5 +25,9 @@
                   :dependencies   [[integrant/repl "0.3.2"]
                                    [hawk "0.2.11"]
                                    [eftest "0.5.9"]
-                                   [kerodon "0.9.1"]]}})
+                                   [kerodon "0.9.1"]]
+                  :aliases {"db-migrate" ^{:doc "Migrate DB to the latest migration."}
+                            ["run" "-m" "dev/db-migrate"]
+                            "db-rollback" ^{:doc "Rollback DB one migration."}
+                            ["run" "-m" "dev/db-rollback"]}}})
 
