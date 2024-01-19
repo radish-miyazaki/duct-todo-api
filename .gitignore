@@ -12,7 +12,7 @@ pom.xml.asc
 /profiles.clj
 /dev/resources/local.edn
 /dev/src/local.clj
-.clj-kondo/
+.clj-kondo/.cache
 .DS_Store
 .lsp/
 
