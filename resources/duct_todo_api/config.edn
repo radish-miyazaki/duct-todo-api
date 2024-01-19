@@ -1,6 +1,7 @@
 {:duct.profile/base
  {:duct.core/project-ns duct-todo-api
 
+  ;; Routes
   :duct.router/ataraxy
   {:routes
    {"/todos"
@@ -10,12 +11,17 @@
      {[:get]                      [:duct-todo-api.handler.todo/fetch-todo ^int todo-id]
       [:delete]                   [:duct-todo-api.handler.todo/delete-todo ^int todo-id]
       [:put {todo :body-params}]  [:duct-todo-api.handler.todo/update-todo ^int todo-id todo]}}}}
-
   :duct-todo-api.handler.todo/list-todos {:db #ig/ref :duct.database/sql}
   :duct-todo-api.handler.todo/create-todo {:db #ig/ref :duct.database/sql}
   :duct-todo-api.handler.todo/fetch-todo {:db #ig/ref :duct.database/sql}
   :duct-todo-api.handler.todo/delete-todo {:db #ig/ref :duct.database/sql}
-  :duct-todo-api.handler.todo/update-todo {:db #ig/ref :duct.database/sql}}
+  :duct-todo-api.handler.todo/update-todo {:db #ig/ref :duct.database/sql}
+
+  ;; Migration
+  :duct.migrator/ragtime
+  {:migrations #ig/ref :duct.migrator.ragtime/resources}
+  :duct.migrator.ragtime/resources
+  {:path "migrations"}}
 
  :duct.profile/dev   #duct/include "dev"
  :duct.profile/local #duct/include "local"
