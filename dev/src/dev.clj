@@ -11,14 +11,19 @@
    [integrant.core :as ig]
    [integrant.repl :refer [clear go halt init prep reset]]
    [integrant.repl.state :refer [config system]]
+   [orchestra.spec.test :as stest]
    [ragtime.jdbc]
    [ragtime.repl]))
-
 
 (duct/load-hierarchy)
 
 (defn read-config []
   (duct/read-config (io/resource "duct_todo_api/config.edn")))
+
+(defn reset []
+  (let [result (integrant.repl/reset)]
+    (with-out-str (stest/instrument))
+    result))
 
 (defn test []
   (eftest/run-tests (eftest/find-tests "test")))
