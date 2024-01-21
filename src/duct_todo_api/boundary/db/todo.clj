@@ -15,7 +15,7 @@
 
 (s/fdef find-todos
   :args (s/cat :db any?)
-  :ret (s/coll-of :todo))
+  :ret (s/coll-of ::todo))
 
 (s/fdef find-todo-by-id
   :args (s/cat :db any?
@@ -30,7 +30,8 @@
 (s/fdef update-todo!
   :args (s/cat :db any?
                :id ::id
-               :todo (s/keys :req-un [::title])))
+               :todo (s/keys :req-un [::title]))
+  :ret ::id)
 
 (s/fdef delete-todo!
   :args (s/cat :db any?
@@ -41,13 +42,11 @@
   (find-todos [db])
   (find-todo-by-id [db id])
   (create-todo! [db todo])
-  (update-todo! [db id todo])
+  (upsert-todo! [db id todo])
   (delete-todo! [db id]))
 
 (defn ->connectable [db]
-  (-> db :spec))
-;; (defn ->connectable [db]
-;;   (-> db :spec :datasource))
+  (-> db :spec :datasource))
 
 (def jdbc-opts
   {:return-keys true
@@ -63,14 +62,16 @@
                    :todos id jdbc-opts))
   (create-todo! [db todo]
     (-> (->connectable db)
-        (sql/insert! :todos (select-keys todo [:title]) jdbc-opts)))
+        (sql/insert! :todos (select-keys todo [:title]) jdbc-opts)
+        :id))
   (upsert-todo! [db id {:keys [title]}]
     (-> (->connectable db)
         (jdbc/execute-one! ["INSERT INTO todos (id, title) VALUES (?, ?)
                                ON CONFLICT ON CONSTRAINT todos_pkey
                                DO UPDATE SET title = ?"
                             id title title]
-                           jdbc-opts)))
+                           jdbc-opts)
+        :id))
   (delete-todo! [db id]
     (-> (->connectable db)
         (sql/delete! :todos {:id id})

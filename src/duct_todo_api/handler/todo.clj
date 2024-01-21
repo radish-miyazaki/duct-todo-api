@@ -6,7 +6,6 @@
 
 (defmethod ig/init-key ::list-todos [_ {:keys [db]}]
   (fn [_]
-    ;; TODO: DB Access
     [::response/ok (db.todo/find-todos db)]))
 
 (defmethod ig/init-key ::create-todo [_ {:keys [db]}]
@@ -29,6 +28,6 @@
 
 (defmethod ig/init-key ::update-todo [_ {:keys [db]}]
   (fn [{[_ todo-id todo] :ataraxy/result}]
-    (db.todo/update-todo! db todo-id todo)
+    (db.todo/upsert-todo! db todo-id todo)
     [::response/created (str "/todos/" todo-id) (db.todo/find-todo-by-id db todo-id)]))
 
