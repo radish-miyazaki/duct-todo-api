@@ -9,7 +9,7 @@
    [eftest.runner :as eftest]
    [fipp.edn :refer [pprint]]
    [integrant.core :as ig]
-   [integrant.repl :refer [clear go halt init prep reset]]
+   [integrant.repl :refer [clear go halt init prep]]
    [integrant.repl.state :refer [config system]]
    [orchestra.spec.test :as stest]
    [ragtime.jdbc]
