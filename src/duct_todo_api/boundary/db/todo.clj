@@ -45,7 +45,9 @@
   (delete-todo! [db id]))
 
 (defn ->connectable [db]
-  (-> db :spec :datasource))
+  (-> db :spec))
+;; (defn ->connectable [db]
+;;   (-> db :spec :datasource))
 
 (def jdbc-opts
   {:return-keys true
