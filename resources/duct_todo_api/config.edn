@@ -25,7 +25,7 @@
 
   ;; Middleware
   :duct-todo-api.middleware/wrap-cors
-  {:access-control-allow-origin [#duct-todo-api.regex ".*"]
+  {:access-control-allow-origin [#duct-todo-api/regex ".*"]
    :access-control-allow-methods [:get :post :put :delete]}
 
   :duct.handler/root
