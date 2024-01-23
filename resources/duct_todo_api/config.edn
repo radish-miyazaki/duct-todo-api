@@ -21,7 +21,15 @@
   :duct.migrator/ragtime
   {:migrations #ig/ref :duct.migrator.ragtime/resources}
   :duct.migrator.ragtime/resources
-  {:path "migrations"}}
+  {:path "migrations"}
+
+  ;; Middleware
+  :duct-todo-api.middleware/wrap-cors
+  {:access-control-allow-origin [#duct-todo-api.regex ".*"]
+   :access-control-allow-methods [:get :post :put :delete]}
+
+  :duct.handler/root
+  {:middleware [#ig/ref :duct-todo-api.middleware/wrap-cors]}}
 
  :duct.profile/dev   #duct/include "dev"
  :duct.profile/local #duct/include "local"

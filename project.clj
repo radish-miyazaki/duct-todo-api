@@ -9,7 +9,8 @@
                  [duct/module.sql "0.6.1"]
                  [duct/module.web "0.7.3"]
                  [seancorfield/next.jdbc "1.2.659"]
-                 [org.postgresql/postgresql "42.2.19"]]
+                 [org.postgresql/postgresql "42.2.19"]
+                 [ring-cors "0.1.13"]]
   :plugins [[duct/lein-duct "0.12.3"]]
   :main ^:skip-aot duct-todo-api.main
   :resource-paths ["resources" "target/resources"]

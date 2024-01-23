@@ -4,6 +4,7 @@
    [clojure.java.io :as io]
    [clojure.repl :refer :all]
    [clojure.tools.namespace.repl :refer [refresh]]
+   [duct-todo-api.main :refer [custom-readers]]
    [duct.core :as duct]
    [duct.core.repl :as duct-repl :refer [auto-reset]]
    [eftest.runner :as eftest]
@@ -18,7 +19,8 @@
 (duct/load-hierarchy)
 
 (defn read-config []
-  (duct/read-config (io/resource "duct_todo_api/config.edn")))
+  (duct/read-config (io/resource "duct_todo_api/config.edn")
+                    custom-readers))
 
 (defn reset []
   (let [result (integrant.repl/reset)]
